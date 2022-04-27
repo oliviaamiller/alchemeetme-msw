@@ -25,13 +25,13 @@ const server = setupServer(
   rest.get(process.env.REACT_APP_SUPABASE_URL, (req, res, ctx) => res(ctx.json(user)))
 );
 
-// 🚨 Listen for server start
-beforeAll();
+// Listen for server start
+beforeAll(() => server.listen());
 
-// 🚨 Close server when complete
-afterAll();
+// Close server when complete
+afterAll(() => server.close());
 
-test('Should render the header', async () => {
+it('Should render the header', async () => {
   render(<App />);
   const banner = screen.getByRole('banner');
   const headerImg = screen.getByAltText(/alchemy/i);
