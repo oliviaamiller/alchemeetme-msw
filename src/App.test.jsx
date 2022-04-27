@@ -22,18 +22,9 @@ const user = {
 
 // Create your server
 const server = setupServer(
-  rest.get(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/users`, (req, res, ctx) => {
-    const select = req.url.searchParams.get('select');
-    if (select === '*') {
-      return res(ctx.json([user]));
-    }
-    return res(
-      ctx.status(500),
-      ctx.json({
-        error: 'no user',
-      })
-    );
-  })
+  rest.get(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/users`, (req, res, ctx) =>
+  res(ctx.json([user]))
+)
 );
 
 // Listen for server start
@@ -69,18 +60,9 @@ it('Should render the header with Sasuke 🌬️🔥', async () => {
 
   // 🚨 Use the server to change the response for this test
   server.use(
-    rest.get(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/users`, (req, res, ctx) => {
-      const select = req.url.searchParams.get('select');
-      if (select === '*') {
-        return res(ctx.json([sasuke]));
-      }
-      return res(
-        ctx.status(500),
-        ctx.json({
-          error: 'no user',
-        })
-      );
-    })
+    rest.get(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/users`, (req, res, ctx) =>
+      res(ctx.json([sasuke]))
+    )
   );
 
   render(<App />);
